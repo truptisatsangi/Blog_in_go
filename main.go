@@ -1,24 +1,18 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"go-gin/controllers"
+	"go-gin/initializers"
+	"github.com/gin-gonic/gin"
+)
 
-// func main() {
-//  r := gin.Default()
-//  r.GET("/ping", func(c *gin.Context) {
-//   c.JSON(200, gin.H{
-//    "message": "pong",
-//   })
-//  })
-//  r.Run() // listen and serve on 0.0.0.0:8080
-// }
+func init() {
+	initializers.ConnectToDB();
+}
 
 func main() {
-	r:=gin.Default()
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	
-	})
+	r := gin.Default();
+	r.POST("/posts", controllers.PostsCreate)
+	r.GET("/posts", controllers.PostFindAll)
 	r.Run();
 }
